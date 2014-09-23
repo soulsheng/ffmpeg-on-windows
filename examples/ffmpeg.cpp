@@ -38,7 +38,7 @@
 #endif
 #endif
 #include "../inc/g_include.h"
-#include "./StrongFFplugin.h"
+//#include "./StrongFFplugin.h"
 #include "../inc/libavformat/ffm.h" // not public API
 
 # include "../inc/libavfilter/avcodec.h"
@@ -3379,12 +3379,12 @@ int main(int argc, char * argv[])
 		printf("ffmpeg dll version is validate!\r\n");
 		extra_exit(1);
 	}
-
+#if 0
 	int plugin_num = 0;
 	plugin_num = av_register_strongffplugin(GetModuleHandle(NULL));
 	if(plugin_num <= 0)
 	{printf("Register StrongFFplugin Failed!\r\n");extra_exit(2);}
-
+#endif
     show_banner(argc, argv, options);
 
     term_init();

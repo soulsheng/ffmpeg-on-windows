@@ -52,7 +52,7 @@
 # include "../inc/libavfilter/buffersrc.h"
 #endif
 
-#include "./StrongFFplugin.h"
+//#include "./StrongFFplugin.h"
 
 #include "./SDL/inc/SDL_ttf.h"
 #include "./SDL/inc/SDL_thread.h"
@@ -3504,6 +3504,7 @@ int _tmain(int argc, char* argv[])
 		printf("ffmpeg dll version is validate!\r\n");
 		extra_exit(1);
 	}
+#if 0
 	int plugin_num = 0;
 	plugin_num = av_register_strongffplugin(GetModuleHandle(NULL));
 	if(plugin_num <= 0)
@@ -3511,7 +3512,7 @@ int _tmain(int argc, char* argv[])
 		printf("Register StrongFFplugin Failed!\r\n");
 		extra_exit(2);
 	}
-
+#endif
     init_opts();
 
     signal(SIGINT , sigterm_handler); /* Interrupt (ANSI).    */

@@ -1,0 +1,6 @@
+/examples/Debug
+/examples/ipch
+/examples/Release
+/examples/*.sdf
+/examples/*.opensdf
+/examples/*.suo
