@@ -3121,6 +3121,8 @@ static void event_loop(VideoState *cur_stream)
         double x;
         refresh_loop_wait_event(cur_stream, &event_SDL);
         switch (event_SDL.type) {
+
+#if 0 // key
         case SDL_KEYDOWN:
             if (exit_on_keydown) {
                 do_exit(cur_stream);
@@ -3199,9 +3201,13 @@ static void event_loop(VideoState *cur_stream)
                 break;
             }
             break;
+#endif // key
+
         case SDL_VIDEOEXPOSE:
             cur_stream->force_refresh = 1;
             break;
+
+#if 0 // mouse
         case SDL_MOUSEBUTTONDOWN:
             if (exit_on_mousedown) {
                 do_exit(cur_stream);
@@ -3244,6 +3250,8 @@ static void event_loop(VideoState *cur_stream)
                     stream_seek(cur_stream, ts, 0, 0);
                 }
             break;
+#endif // mouse
+
         case SDL_VIDEORESIZE:
                 screen = SDL_SetVideoMode(event_SDL.resize.w, event_SDL.resize.h, 0,
                                           SDL_HWSURFACE|SDL_RESIZABLE|SDL_ASYNCBLIT|SDL_HWACCEL);

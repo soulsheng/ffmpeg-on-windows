@@ -4,3 +4,10 @@
 /examples/*.sdf
 /examples/*.opensdf
 /examples/*.suo
+/bin/*.exe
+/bin/*.pdb
+/bin/*.ilk
+/bin/*.mp4
+/bin/*.avi
+/examples/*.avi
+/examples/*.mp4
