@@ -11,3 +11,5 @@
 /bin/*.avi
 /examples/*.avi
 /examples/*.mp4
+/examples/*.user
+/bin/*.exe
