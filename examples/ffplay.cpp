@@ -292,7 +292,7 @@ static int default_height = 480;
 static int screen_width  = 0;
 static int screen_height = 0;
 static int audio_disable;
-static int video_disable;
+//static int video_disable;
 static int subtitle_disable;
 static int wanted_stream[AVMEDIA_TYPE_NB] = {
     //[AVMEDIA_TYPE_AUDIO]    = -1,
@@ -301,7 +301,7 @@ static int wanted_stream[AVMEDIA_TYPE_NB] = {
 	-1,-1,-1,-1,-1
 };
 static int seek_by_bytes = -1;
-static int display_disable;
+//static int display_disable;
 static int show_status = 1;
 static int av_sync_type = AV_SYNC_AUDIO_MASTER;
 static int64_t start_time = AV_NOPTS_VALUE;
@@ -1337,7 +1337,7 @@ static void video_refresh(void *opaque, double *remaining_time)
     if (!is->paused && get_master_sync_type(is) == AV_SYNC_EXTERNAL_CLOCK && is->realtime)
         check_external_clock_speed(is);
 
-    if (!display_disable && is->show_mode != SHOW_MODE_VIDEO && is->audio_st) {
+    if ( is->show_mode != SHOW_MODE_VIDEO && is->audio_st) {
         time = av_gettime() / 1000000.0;
         if (is->force_refresh || is->last_vis_time + rdftspeed < time) {
             video_display(is);
@@ -1453,7 +1453,7 @@ retry:
 
 display:
             /* display picture */
-            if (!display_disable && is->show_mode == SHOW_MODE_VIDEO)
+            if ( is->show_mode == SHOW_MODE_VIDEO)
                 video_display(is);
 
             pictq_next_picture(is);
@@ -2764,8 +2764,8 @@ static int read_thread(void *arg)
 
     for (i = 0; i < ic->nb_streams; i++)
         ic->streams[i]->discard = AVDISCARD_ALL;
-    if (!video_disable)
-        st_index[AVMEDIA_TYPE_VIDEO] =
+   
+	st_index[AVMEDIA_TYPE_VIDEO] =
             av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO,
                                 wanted_stream[AVMEDIA_TYPE_VIDEO], -1, NULL, 0);
     if (!audio_disable)
@@ -2774,7 +2774,7 @@ static int read_thread(void *arg)
                                 wanted_stream[AVMEDIA_TYPE_AUDIO],
                                 st_index[AVMEDIA_TYPE_VIDEO],
                                 NULL, 0);
-    if (!video_disable && !subtitle_disable)
+    if (!subtitle_disable)
         st_index[AVMEDIA_TYPE_SUBTITLE] =
             av_find_best_stream(ic, AVMEDIA_TYPE_SUBTITLE,
                                 wanted_stream[AVMEDIA_TYPE_SUBTITLE],
@@ -3354,14 +3354,8 @@ int _tmain(int argc, char* argv[])
         extra_exit(1);
     }
 
-    if (display_disable) {
-        video_disable = 1;
-    }
+  
     flags = SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER;
-    if (audio_disable)
-        flags &= ~SDL_INIT_AUDIO;
-    if (display_disable)
-        SDL_putenv(dummy_videodriver); /* For the event queue, we always need a video driver. */
 #if !defined(__MINGW32__) && !defined(__APPLE__) && !defined(WIN32)
     flags |= SDL_INIT_EVENTTHREAD; /* Not supported on Windows or Mac OS X */
 #endif
@@ -3371,11 +3365,9 @@ int _tmain(int argc, char* argv[])
         extra_exit(1);
     }
 
-    if (!display_disable) {
-        const SDL_VideoInfo *vi = SDL_GetVideoInfo();
-        fs_screen_width = vi->current_w;
-        fs_screen_height = vi->current_h;
-    }
+	const SDL_VideoInfo *vi = SDL_GetVideoInfo();
+	fs_screen_width = vi->current_w;
+	fs_screen_height = vi->current_h;
 
     SDL_EventState(SDL_ACTIVEEVENT, SDL_IGNORE);
     SDL_EventState(SDL_SYSWMEVENT, SDL_IGNORE);
