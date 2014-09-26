@@ -59,8 +59,6 @@ AVDictionary *format_opts, *codec_opts, *resample_opts;
 /* we use about AUDIO_DIFF_AVG_NB A-V differences to make the average */
 #define AUDIO_DIFF_AVG_NB   20
 
-/* polls for possible required screen refresh at least this often, should be less than 1/fps */
-#define REFRESH_RATE 0.01
 
 
 #define CURSOR_HIDE_DELAY 1000000
@@ -123,8 +121,6 @@ static int64_t audio_callback_time;
 
 static AVPacket flush_pkt;
 
-#define FF_ALLOC_EVENT   (SDL_USEREVENT)
-#define FF_QUIT_EVENT    (SDL_USEREVENT + 2)
 
 static SDL_Surface *screen;
 
@@ -819,7 +815,7 @@ static void stream_close(VideoState *is)
     av_free(is);
 }
 
-static void do_exit(VideoState *is)
+void do_exit(VideoState *is)
 {
     if (is) {
         stream_close(is);
@@ -1112,7 +1108,7 @@ static void update_video_pts(VideoState *is, double pts, int64_t pos, int serial
 }
 
 /* called to display each frame */
-static void video_refresh(void *opaque, double *remaining_time)
+void video_refresh(void *opaque, double *remaining_time)
 {
     VideoState *is = (VideoState *)opaque;
     VideoPicture *vp;
@@ -1286,7 +1282,7 @@ display:
 
 /* allocate a picture (needs to do that in main thread to avoid
    potential locking problems */
-static void alloc_picture(VideoState *is)
+void alloc_picture(VideoState *is)
 {
     VideoPicture *vp;
 
@@ -2886,7 +2882,7 @@ static void toggle_audio_display(VideoState *is)
         is->show_mode = (ShowMode)next;
     }
 }
-
+#if 0
 static void refresh_loop_wait_event(VideoState *is, SDL_Event *event) {
     double remaining_time = 0.0;
     SDL_PumpEvents();
@@ -3064,7 +3060,7 @@ void event_loop(VideoState *cur_stream)
         }
     }
 }
-
+#endif
 static int lockmgr(void **mtx, enum AVLockOp op)
 {
    switch(op) {

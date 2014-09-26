@@ -48,6 +48,14 @@
 /* TODO: We assume that a decoded and resampled frame fits into this buffer */
 #define SAMPLE_ARRAY_SIZE (8 * 65536)
 
+/* polls for possible required screen refresh at least this often, should be less than 1/fps */
+#define REFRESH_RATE 0.01
+
+
+#define FF_ALLOC_EVENT   (SDL_USEREVENT)
+#define FF_QUIT_EVENT    (SDL_USEREVENT + 2)
+
+
 typedef struct MyAVPacketList {
 	AVPacket pkt;
 	struct MyAVPacketList *next;
@@ -227,6 +235,11 @@ void	initialize();
 
 VideoState *stream_open(const char *filename, AVInputFormat *iformat);
 
-void event_loop(VideoState *cur_stream);
+//void event_loop(VideoState *cur_stream);
+void video_refresh(void *opaque, double *remaining_time);
+
+void do_exit(VideoState *is);	// unInitialize 
+
+void alloc_picture(VideoState *is);
 
 #endif//FFPLAY_H__
