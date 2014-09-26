@@ -13,3 +13,7 @@
 /examples/*.mp4
 /examples/*.user
 /bin/*.exe
+/Debug
+/Release
+/*.sdf
+/*.opensdf
