@@ -162,14 +162,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="cmdutils.h" />
     <ClInclude Include="cmdutils_common_opts.h" />
     <ClInclude Include="resource2.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cmdutils.c" />
     <ClCompile Include="ffplay.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ffplay.rc" />

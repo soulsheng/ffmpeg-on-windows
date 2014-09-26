@@ -18,21 +18,21 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="cmdutils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="cmdutils_common_opts.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="resource2.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cmdutils.c">
+    <ClCompile Include="ffplay.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ffplay.cpp">
+    <ClCompile Include="utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
